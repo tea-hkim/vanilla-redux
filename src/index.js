@@ -1,12 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+const add = document.getElementById("add");
+const minus = document.getElementById("minus");
+const number = document.querySelector("span");
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+let count = 0;
+number.innerText = count;
 
-reportWebVitals();
+const updateNumber = () => {
+  number.innerText = count;
+};
+
+const handleClick = (event) => {
+  const {
+    target: { id },
+  } = event;
+  if (id === "add") {
+    count = count + 1;
+  } else {
+    count = count - 1;
+  }
+  updateNumber();
+};
+
+add.addEventListener("click", handleClick);
+minus.addEventListener("click", handleClick);
