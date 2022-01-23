@@ -12,7 +12,7 @@ const reducer = (state = [], action) => {
     case ADD_TODO:
       return [...state, { text: action.text, id: action.id }];
     case DELETE_TODO:
-      return;
+      return state.filter((todo) => todo.id !== action.id);
     default:
       return;
   }
@@ -20,13 +20,22 @@ const reducer = (state = [], action) => {
 
 const store = createStore(reducer);
 
+const deleteBtn = ({ target }) => {
+  const ID = parseInt(target.parentNode.id);
+  store.dispatch({ type: DELETE_TODO, id: ID });
+};
+
 const createToDo = () => {
   const toDos = store.getState();
   ul.innerHTML = "";
   toDos.forEach((toDo) => {
     const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.innerText = "delete";
+    btn.addEventListener("click", deleteBtn);
     li.id = toDo.id;
     li.innerText = toDo.text;
+    li.appendChild(btn);
     ul.appendChild(li);
   });
 };
@@ -37,7 +46,11 @@ const handleSubmit = (event) => {
   const toDo = input.value;
   input.value = "";
   store.dispatch({ type: ADD_TODO, text: toDo, id: ID });
-  createToDo();
 };
+
+store.subscribe(() => {
+  createToDo();
+  console.log(store.getState());
+});
 
 form.addEventListener("submit", handleSubmit);
