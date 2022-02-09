@@ -17,6 +17,11 @@ export const deleteToDo = (id) => {
   };
 };
 
+export const actionCreater = {
+  addToDo,
+  deleteToDo,
+};
+
 const reducer = (state = [], action) => {
   switch (action.type) {
     case ADD:

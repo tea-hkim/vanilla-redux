@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { actionCreater } from "./../store";
 
-function Home(props) {
-  console.log(props);
+function Home({ toDos, addToDo }) {
   const [text, setText] = useState("");
-  const [toDos, setToDos] = useState([]);
   const onChange = (e) => {
     setText(e.target.value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newToDo = {
-      id: Date.now(),
-      text,
-    };
-    setToDos((prevToDos) => [...prevToDos, newToDo]);
+    addToDo(text);
     setText("");
   };
 
@@ -22,9 +17,10 @@ function Home(props) {
     const {
       target: { name },
     } = event;
-    const newToDos = toDos.filter((todo) => todo.id !== parseInt(name));
-    setToDos(newToDos);
+    // const newToDos = toDos.filter((todo) => todo.id !== parseInt(name));
+    // setToDos(newToDos);
   };
+
   return (
     <>
       <h1>To Do</h1>
@@ -47,7 +43,14 @@ function Home(props) {
   );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return { toDos: state };
 }
-export default connect(mapStateToProps)(Home);
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addToDo: (text) => dispatch(actionCreater.addToDo(text)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
