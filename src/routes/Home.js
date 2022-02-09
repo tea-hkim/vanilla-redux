@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import RenderToDo from "../components/RenderToDo";
 import { actionCreater } from "./../store";
 
 function Home({ toDos, addToDo }) {
@@ -13,14 +14,6 @@ function Home({ toDos, addToDo }) {
     setText("");
   };
 
-  const handleDelete = (event) => {
-    const {
-      target: { name },
-    } = event;
-    // const newToDos = toDos.filter((todo) => todo.id !== parseInt(name));
-    // setToDos(newToDos);
-  };
-
   return (
     <>
       <h1>To Do</h1>
@@ -31,12 +24,7 @@ function Home({ toDos, addToDo }) {
       </form>
       <ul>
         {toDos?.map((toDo) => (
-          <li key={toDo.id}>
-            {toDo.text}
-            <button onClick={handleDelete} name={toDo.id}>
-              Delete
-            </button>
-          </li>
+          <RenderToDo {...toDo} key={toDo.id} />
         ))}
       </ul>
     </>
