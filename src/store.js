@@ -25,10 +25,18 @@ export const actionCreater = {
 const reducer = (state = [], action) => {
   switch (action.type) {
     case ADD:
-      return [{ text: action.text, id: Date.now() }, ...state];
+      const addToDoList = [{ text: action.text, id: Date.now() }, ...state];
+      localStorage.setItem("toDoList", JSON.stringify(addToDoList));
+      return addToDoList;
     case DELETE:
-      return state.filter((toDo) => toDo.id !== action.id);
+      const deleteToDoList = state.filter((toDo) => toDo.id !== action.id);
+      localStorage.setItem("toDoList", JSON.stringify(deleteToDoList));
+      return deleteToDoList;
     default:
+      const toDoList = JSON.parse(localStorage.getItem("toDoList"));
+      if (toDoList) {
+        return toDoList;
+      }
       return state;
   }
 };
