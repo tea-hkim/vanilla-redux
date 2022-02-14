@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import RenderToDo from "../components/RenderToDo";
 import { actionCreater } from "./../store";
+import styled from "styled-components";
 
 function Home({ toDos, addToDo }) {
   const [text, setText] = useState("");
@@ -16,7 +17,7 @@ function Home({ toDos, addToDo }) {
 
   return (
     <>
-      <h1>To Do</h1>
+      <Title>To Do List</Title>
       <hr></hr>
       <form onSubmit={handleSubmit}>
         <input type="text" value={text} onChange={onChange} />
@@ -42,3 +43,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+const Title = styled.h1`
+  font-size: 48px;
+`;
