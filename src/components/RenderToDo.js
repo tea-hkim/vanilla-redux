@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { actionCreater } from "./../store";
+import { remove } from "./../store";
 
 function RenderToDo({ text, id, handleDeleteBtn }) {
   return (
@@ -15,7 +15,7 @@ function RenderToDo({ text, id, handleDeleteBtn }) {
 }
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    handleDeleteBtn: () => dispatch(actionCreater.deleteToDo(ownProps.id)),
+    handleDeleteBtn: () => dispatch(remove(ownProps.id)),
   };
 }
 export default connect(null, mapDispatchToProps)(RenderToDo);

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { actionCreater } from "./../store";
+import { remove } from "./../store";
 
 function Detail({ toDos, handleDeleteBtn }) {
   const id = parseInt(useParams().id);
@@ -27,7 +27,7 @@ function Detail({ toDos, handleDeleteBtn }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleDeleteBtn: (id) => dispatch(actionCreater.deleteToDo(id)),
+    handleDeleteBtn: (id) => dispatch(remove(id)),
   };
 }
 
